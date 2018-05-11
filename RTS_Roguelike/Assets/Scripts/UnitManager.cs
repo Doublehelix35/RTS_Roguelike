@@ -5,14 +5,16 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour {
 
     private List<GameObject> SelectedUnits;
-    public GameObject BoxSelector;
+    public GameObject BoxSelectorPrefab;
+    GameObject BoxSelector;
     private bool BoxSelectionStarted = false;
 
 	// Use this for initialization
 	void Start ()
     {
         // Init values
-        SelectedUnits = new List<GameObject>();
+        SelectedUnits = new List<GameObject>();        
+        BoxSelector = Instantiate(BoxSelectorPrefab, transform);       
         BoxSelector.SetActive(false);
 	}
 	
@@ -21,8 +23,6 @@ public class UnitManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Mouse0)) // Left click
         {
-            Debug.Log("Left Click");
-
             // Clear selection
             if (SelectedUnits.Count != 0)
             {
@@ -78,7 +78,6 @@ public class UnitManager : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1)) // Right click
         {
-            Debug.Log("Right Click");
             if (SelectedUnits.Count > 0)
             {
                 // Move units
