@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
 
-    Vector3 TargetDestination;
-    float Speed = 1.0f;
+    Vector3 TargetDestination; // Destination to move to
+    float Speed = 1.0f; // Unit movement speed
 
-	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        // Init values
         TargetDestination = transform.position;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
         // Move
         if (transform.position != TargetDestination)
@@ -27,9 +28,10 @@ public class Unit : MonoBehaviour {
         }
 	}
     
-    // Set new target to move this unit to
-    void SetTargetDestination(Vector3 NewDestination)
+    
+    public void SetTargetDestination(Vector3 NewDestination)
     {
+        // Set new target
         TargetDestination = NewDestination;
     }
 }
