@@ -5,6 +5,12 @@ using UnityEngine;
 public class Unit : MonoBehaviour {
 
     Vector3 TargetDestination; // Destination to move to
+
+    // Stats
+    int Health = 5;
+    int Attack = 1;
+    int Defense = 0;
+
     float Speed = 1.0f; // Unit movement speed
 
 	void Start ()
