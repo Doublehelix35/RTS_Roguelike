@@ -10,7 +10,7 @@ public class BoxSelector : MonoBehaviour {
 	void Start ()
     {
         GameManagerRef = GameObject.FindGameObjectWithTag("GameController");
-	}
+    }
 
     
     private void OnTriggerEnter2D(Collider2D col)

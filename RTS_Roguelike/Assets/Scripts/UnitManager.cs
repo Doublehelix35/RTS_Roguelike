@@ -142,14 +142,27 @@ public class UnitManager : MonoBehaviour {
             // Line formation
             case 1:
                 Vector3 LinePos = new Vector3(-2f, 0f, 0f);
-                foreach (GameObject Unit in SelectedUnits)
+                for(int i = 0; i < SelectedUnits.Count; i++)
                 {
                     LinePos.x += 2f;
-                    Unit.GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition) + LinePos);
+                    SelectedUnits[i].GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition) + LinePos);
                 }
                 break;
             // Square formation
             case 2:
+                int width = 3; // replace with formula based on count
+                int height = 2;
+                int unitNum = 0;
+                for (int i = 0; i < height; i++)
+                {
+                    for (int j = 0; j < width; j++)
+                    {                        
+                        Vector3 SquarePos = new Vector3(j * 2, -i * 2, 0f);
+                        SelectedUnits[unitNum].GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition) + SquarePos);
+                        unitNum++;
+                        Debug.Log(unitNum);
+                    }                
+                }
                 break;
             default:
                 break;

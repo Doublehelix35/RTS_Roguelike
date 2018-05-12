@@ -20,7 +20,7 @@ public class Unit : MonoBehaviour {
     {
         // Init values
         TargetDestination = transform.position;
-        GetComponent<CircleCollider2D>().radius = AttackRange;
+        //GetComponent<CircleCollider2D>().radius = AttackRange;
         LastAttackTime = Time.time;
 	}
 	
