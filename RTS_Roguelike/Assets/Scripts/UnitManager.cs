@@ -5,9 +5,11 @@ using UnityEngine;
 public class UnitManager : MonoBehaviour {
 
     private List<GameObject> SelectedUnits;
+    private int SelectedFormation = 0; // Formation of selected units
     public GameObject BoxSelectorPrefab;
     GameObject BoxSelector;
     private bool BoxSelectionStarted = false;
+
 
 	// Use this for initialization
 	void Start ()
@@ -21,13 +23,16 @@ public class UnitManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) // Left click
+        // Left click
+        if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
             // Clear selection
             if (SelectedUnits.Count != 0)
             {
                 SelectedUnits.Clear();
                 Debug.Log("Selection Cleared");
+                // Reset formation
+                SelectedFormation = 0;
             }
 
             // Check for unit hit
@@ -37,9 +42,9 @@ public class UnitManager : MonoBehaviour {
             {
                 SelectedUnits.Add(Hit.transform.gameObject);
                 Debug.Log(Hit.transform.gameObject.name + " selected");
-            }
-                       
+            }                       
         }
+        // Left click & control
         else if (Input.GetKey(KeyCode.Mouse0) && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
         {
 
@@ -76,15 +81,12 @@ public class UnitManager : MonoBehaviour {
             }
 
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse1)) // Right click
+        // Right click
+        else if (Input.GetKeyDown(KeyCode.Mouse1)) 
         {
             if (SelectedUnits.Count > 0)
             {
-                // Move units
-                foreach (GameObject Unit in SelectedUnits)
-                {
-                    Unit.GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                }
+                MoveSelection();
             }
             else
             {
@@ -100,6 +102,19 @@ public class UnitManager : MonoBehaviour {
             BoxSelector.SetActive(false);
         }
 
+        // 1 button
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SelectedFormation = 1;
+            Debug.Log("Line formation!");
+        }
+        // 2 button
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectedFormation = 2;
+            Debug.Log("Square formation!");
+        }
+
 	}
 
     public void AddUnitToSelection(GameObject UnitToAdd)
@@ -108,6 +123,36 @@ public class UnitManager : MonoBehaviour {
         {
             SelectedUnits.Add(UnitToAdd);
             Debug.Log("Unit Added!");
+        }
+        
+    }
+
+    void MoveSelection()
+    {
+        switch (SelectedFormation)
+        {
+            // No formation selected
+            case 0:
+                // Move all units to single target
+                foreach (GameObject Unit in SelectedUnits)
+                {
+                    Unit.GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                }
+                break;
+            // Line formation
+            case 1:
+                Vector3 LinePos = new Vector3(-2f, 0f, 0f);
+                foreach (GameObject Unit in SelectedUnits)
+                {
+                    LinePos.x += 2f;
+                    Unit.GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition) + LinePos);
+                }
+                break;
+            // Square formation
+            case 2:
+                break;
+            default:
+                break;
         }
         
     }

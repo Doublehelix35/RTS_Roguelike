@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 5
-  Defense: 0
+  Defense: 1
   AttackValue: 1
   AttackRange: 1.5
   AttackSpeed: 1
@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 5
-  Defense: 0
+  Defense: 1
   AttackValue: 1
   AttackRange: 1.5
   AttackSpeed: 1

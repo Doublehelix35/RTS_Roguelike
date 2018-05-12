@@ -61,6 +61,7 @@ public class Unit : MonoBehaviour {
     {
         // Set new target
         TargetDestination = NewDestination;
+        TargetDestination.z = 0f;
     }
 
     public void TakeDamage(int damageToTake)
