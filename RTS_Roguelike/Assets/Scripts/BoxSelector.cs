@@ -15,11 +15,10 @@ public class BoxSelector : MonoBehaviour {
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Triggered!");
         if (col.gameObject.tag == "Unit")
         {
+            // Tell GM to add unit to list
             GameManagerRef.GetComponent<UnitManager>().AddUnitToSelection(col.gameObject);
-            Debug.Log("Unit Added?");
         }
     }
 }

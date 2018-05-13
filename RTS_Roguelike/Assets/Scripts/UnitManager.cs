@@ -121,8 +121,8 @@ public class UnitManager : MonoBehaviour {
     {
         if (!SelectedUnits.Contains(UnitToAdd))
         {
+            // Add unit to list
             SelectedUnits.Add(UnitToAdd);
-            Debug.Log("Unit Added!");
         }
         
     }
@@ -151,16 +151,19 @@ public class UnitManager : MonoBehaviour {
             // Square formation
             case 2:
                 int width = 3; // replace with formula based on count
-                int height = 2;
-                int unitNum = 0;
-                for (int i = 0; i < height; i++)
+                int unitNum = SelectedUnits.Count;
+                for (int i = 0; i < SelectedUnits.Count; i++)
                 {
                     for (int j = 0; j < width; j++)
                     {                        
                         Vector3 SquarePos = new Vector3(j * 2, -i * 2, 0f);
-                        SelectedUnits[unitNum].GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition) + SquarePos);
-                        unitNum++;
+                        SelectedUnits[unitNum - 1].GetComponent<Unit>().SetTargetDestination(Camera.main.ScreenToWorldPoint(Input.mousePosition) + SquarePos);
+                        unitNum--;
                         Debug.Log(unitNum);
+                        if(unitNum == 0)
+                        {
+                            return;
+                        }
                     }                
                 }
                 break;
