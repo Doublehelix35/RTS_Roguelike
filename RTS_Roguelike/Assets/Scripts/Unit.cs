@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour {
 
+    GameObject GameManagerRef;
     Vector3 TargetDestination; // Destination to move to
 
     // Stats
@@ -19,6 +20,7 @@ public class Unit : MonoBehaviour {
 	void Start ()
     {
         // Init values
+        GameManagerRef = GameObject.FindGameObjectWithTag("GameController");
         TargetDestination = transform.position;
         //GetComponent<CircleCollider2D>().radius = AttackRange;
         LastAttackTime = Time.time;
@@ -70,7 +72,7 @@ public class Unit : MonoBehaviour {
         if(Defense >= damageToTake)
         {
             // Take no damage
-            Debug.Log("Ha! Pathetic attack");
+            //Debug.Log("Ha! Pathetic attack");
         }
         else
         {
@@ -83,6 +85,7 @@ public class Unit : MonoBehaviour {
         if (Health <= 0)
         {
             // Unit dies
+            GameManagerRef.GetComponent<UnitManager>().RemoveUnitFromSelection(gameObject);
             Destroy(gameObject);
         }
     }

@@ -127,6 +127,14 @@ public class UnitManager : MonoBehaviour {
         
     }
 
+    public void RemoveUnitFromSelection(GameObject UnitToRemove)
+    {
+        if (SelectedUnits.Contains(UnitToRemove))
+        {
+            SelectedUnits.Remove(UnitToRemove);
+        }
+    }
+
     void MoveSelection()
     {
         switch (SelectedFormation)
