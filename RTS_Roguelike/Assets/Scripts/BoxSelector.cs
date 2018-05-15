@@ -13,7 +13,7 @@ public class BoxSelector : MonoBehaviour {
     }
 
     
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.tag == "Unit")
         {
