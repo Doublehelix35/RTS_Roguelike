@@ -48,15 +48,24 @@ public class GameManager : MonoBehaviour {
             BoxSelector.SetActive(true);
 
             if (BoxSelectionStarted)
-            {
-                // Edit box size
-                Vector3 BoxSize = BoxSelector.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                BoxSelector.transform.GetChild(0).transform.localScale = BoxSize;
+            { 
+                // Check for floor               
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                // Edit box position
-                Vector3 BoxChildPos = BoxSelector.transform.position - (BoxSelector.transform.GetChild(0).transform.localScale / 2);
-                BoxSelector.transform.GetChild(0).position = BoxChildPos;
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider != null && hit.collider.gameObject.tag == "Floor")
+                    {
+                        // Edit box size
+                        Vector3 BoxSize = BoxSelector.transform.position - hit.point ;
+                        BoxSelector.transform.GetChild(0).transform.localScale = BoxSize;
 
+                        // Edit box position
+                        Vector3 BoxChildPos = BoxSelector.transform.position - (BoxSelector.transform.GetChild(0).transform.localScale / 2);
+                        BoxSelector.transform.GetChild(0).position = BoxChildPos;
+                    }
+                }
             }
             else
             {
@@ -66,9 +75,19 @@ public class GameManager : MonoBehaviour {
                     GetComponent<UnitManager>().ClearSelection();
                 }
 
-                // Set box position
-                BoxSelector.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                BoxSelectionStarted = true;
+                // Check for floor
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.collider != null && hit.collider.gameObject.tag == "Floor")
+                    {
+                        // Set box position
+                        BoxSelector.transform.position = hit.point + new Vector3(0f, 1f, 0f);
+                        BoxSelectionStarted = true;
+                    }
+                }                
             }
 
         }
@@ -99,7 +118,7 @@ public class GameManager : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             BoxSelectionStarted = false;
-            BoxSelector.transform.GetChild(0).transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            BoxSelector.transform.GetChild(0).transform.localScale = new Vector3(1f, 1f, 1f);
             BoxSelector.SetActive(false);
         }
     }

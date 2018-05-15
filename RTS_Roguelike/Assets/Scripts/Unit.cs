@@ -40,7 +40,7 @@ public class Unit : MonoBehaviour {
               
 	}
 
-    private void OnTriggerStay2D(Collider2D col)
+    private void OnTriggerStay(Collider col)
     {
         //Debug.Log("Imma kill you " + col.gameObject.name);
 
