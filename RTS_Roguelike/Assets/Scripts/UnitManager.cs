@@ -96,7 +96,7 @@ public class UnitManager : MonoBehaviour {
                 {
                     for (int j = 0; j < width; j++)
                     {                        
-                        Vector3 SquarePos = new Vector3(j * 2, -i * 2, 0f);
+                        Vector3 SquarePos = new Vector3(j * 2, 0f, -i * 2);
                         SelectedUnits[unitNum - 1].GetComponent<Unit>().SetTargetDestination(NewDestination + SquarePos);
                         unitNum--;
                         Debug.Log(unitNum);
