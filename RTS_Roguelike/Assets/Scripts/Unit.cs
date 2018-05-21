@@ -7,10 +7,13 @@ public class Unit : MonoBehaviour {
 
     GameObject GameManagerRef;
     NavMeshAgent UnitAgent;
+
+    bool IsEnemy = false;
     
 
     // Stats
-    public int Health = 5;
+    public int HealthMax = 5;
+    int Health;
     public int Defense = 0;
     public int AttackValue = 1;
     public float AttackRange = 1.5f;
@@ -26,38 +29,25 @@ public class Unit : MonoBehaviour {
         //GetComponent<CircleCollider2D>().radius = AttackRange;
         LastAttackTime = Time.time;
         UnitAgent = gameObject.GetComponent<NavMeshAgent>();
+        Health = HealthMax;
 	}
 	
-	void Update ()
-    {
-        // Move
-        //if (transform.position != TargetDestination)
-        //{
-        //    // Calculate direction to head
-        //    Vector3 Dir = TargetDestination - transform.position;
-
-        //    // Move in direction
-        //    transform.Translate(Dir * Speed * Time.deltaTime);
-        //}
-        
-              
-	}
 
     private void OnTriggerStay(Collider col)
     {
-        //Debug.Log("Imma kill you " + col.gameObject.name);
-
         // Check for a unit
         if(col.gameObject.tag == "Unit")
         {
             if (LastAttackTime < Time.time - AttackSpeed)
             {
                 // Attack enemy
-                col.gameObject.GetComponent<Unit>().TakeDamage(AttackValue);
-                // Update last attack time
-                LastAttackTime = Time.time;
-            }
-            
+                if(IsEnemy != col.gameObject.GetComponent<Unit>().GetIsEnemy())
+                {
+                    col.gameObject.GetComponent<Unit>().TakeDamage(AttackValue);
+                    // Update last attack time
+                    LastAttackTime = Time.time;
+                }                
+            }            
         }
     }
 
@@ -85,11 +75,24 @@ public class Unit : MonoBehaviour {
         //Check health
         if (Health <= 0)
         {
-            // Unit dies
-            GameManagerRef.GetComponent<UnitManager>().RemoveUnitFromSelection(gameObject);
-            Destroy(gameObject);
+            if (IsEnemy)
+            {
+                // Make friendly and reset health
+                IsEnemy = false;
+                Health = HealthMax;
+            }
+            else
+            {
+                // Unit dies
+                GameManagerRef.GetComponent<UnitManager>().RemoveUnitFromSelection(gameObject);
+                Destroy(gameObject);
+            }
+            
         }
     }
 
-    
+    public bool GetIsEnemy()
+    {
+        return IsEnemy;
+    }
 }
