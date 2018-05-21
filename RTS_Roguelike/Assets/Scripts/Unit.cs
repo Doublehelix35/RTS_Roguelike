@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : MonoBehaviour {
 
     GameObject GameManagerRef;
-    Vector3 TargetDestination; // Destination to move to
+    NavMeshAgent UnitAgent;
+    
 
     // Stats
     public int Health = 5;
@@ -21,22 +23,23 @@ public class Unit : MonoBehaviour {
     {
         // Init values
         GameManagerRef = GameObject.FindGameObjectWithTag("GameController");
-        TargetDestination = transform.position;
         //GetComponent<CircleCollider2D>().radius = AttackRange;
         LastAttackTime = Time.time;
+        UnitAgent = gameObject.GetComponent<NavMeshAgent>();
 	}
 	
 	void Update ()
     {
         // Move
-        if (transform.position != TargetDestination)
-        {
-            // Calculate direction to head
-            Vector3 Dir = TargetDestination - transform.position;
+        //if (transform.position != TargetDestination)
+        //{
+        //    // Calculate direction to head
+        //    Vector3 Dir = TargetDestination - transform.position;
 
-            // Move in direction
-            transform.Translate(Dir * Speed * Time.deltaTime);
-        }
+        //    // Move in direction
+        //    transform.Translate(Dir * Speed * Time.deltaTime);
+        //}
+        
               
 	}
 
@@ -61,7 +64,7 @@ public class Unit : MonoBehaviour {
     public void SetTargetDestination(Vector3 NewDestination)
     {
         // Set new target
-        TargetDestination = NewDestination;
+        UnitAgent.SetDestination(NewDestination);
     }
 
     public void TakeDamage(int damageToTake)
