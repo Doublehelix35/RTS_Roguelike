@@ -36,11 +36,13 @@ public class Unit : MonoBehaviour {
 
     void Update()
     {
+        // If unit is moving on x or z axes then transition to walk anim
         if (UnitAgent.velocity.x >= 0.1f || UnitAgent.velocity.x <= -0.1f ||
             UnitAgent.velocity.z >= 0.1f || UnitAgent.velocity.z <= -0.1f)
         {
             UnitAnimator.SetBool("IsWalking", true);
         }
+        // If unit isn't moving transition to idle anim
         else
         {
             UnitAnimator.SetBool("IsWalking", false);
