@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 384563c29d2fcbc4891d7be5e91bab87
-timeCreated: 1526401673
+guid: 0149d5b133826304bb88ff2a7ab20cd3
+timeCreated: 1527177010
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -148,7 +148,7 @@ ModelImporter:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -174,7 +174,7 @@ ModelImporter:
       name: mixamo.com
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 75
+      lastFrame: 33
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -215,7 +215,7 @@ ModelImporter:
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
-    indexFormat: 1
+    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

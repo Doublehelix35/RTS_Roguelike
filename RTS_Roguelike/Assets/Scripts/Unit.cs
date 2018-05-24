@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour {
 
     GameObject GameManagerRef;
     NavMeshAgent UnitAgent;
+    Animator UnitAnimator;
 
     bool IsEnemy = false;
     
@@ -28,10 +29,24 @@ public class Unit : MonoBehaviour {
         GameManagerRef = GameObject.FindGameObjectWithTag("GameController");
         //GetComponent<CircleCollider2D>().radius = AttackRange;
         LastAttackTime = Time.time;
-        UnitAgent = gameObject.GetComponent<NavMeshAgent>();
+        UnitAgent = GetComponent<NavMeshAgent>();
+        UnitAnimator = GetComponent<Animator>();
         Health = HealthMax;
 	}
-	
+
+    void Update()
+    {
+        if (UnitAgent.velocity.x >= 0.1f || UnitAgent.velocity.x <= -0.1f ||
+            UnitAgent.velocity.z >= 0.1f || UnitAgent.velocity.z <= -0.1f)
+        {
+            UnitAnimator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            UnitAnimator.SetBool("IsWalking", false);
+        }
+    }
+
 
     private void OnTriggerStay(Collider col)
     {
