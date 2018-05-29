@@ -17,8 +17,13 @@ public class BoxSelector : MonoBehaviour {
     {
         if (col.gameObject.tag == "Unit")
         {
-            // Tell GM to add unit to list
-            GameManagerRef.GetComponent<UnitManager>().AddUnitToSelection(col.gameObject);
+            // Check if unit is friendly
+            if(col.gameObject.GetComponent<Unit>().GetIsEnemy() == false)
+            {
+                // Tell GM to add unit to list
+                GameManagerRef.GetComponent<UnitManager>().AddUnitToSelection(col.gameObject);
+            }
+            
         }
     }
 }

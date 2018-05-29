@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Unit
   - Floor
+  - Breakable
   layers:
   - Default
   - TransparentFX

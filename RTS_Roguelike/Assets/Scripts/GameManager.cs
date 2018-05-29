@@ -133,8 +133,12 @@ public class GameManager : MonoBehaviour {
             {
                 if (hit.collider != null && hit.collider.gameObject.tag == "Unit")
                 {
-                    GetComponent<UnitManager>().AddUnitToSelection(hit.transform.gameObject);
-                    Debug.Log(hit.transform.gameObject.name + " selected");
+                    // Check if unit is friendly
+                    if (hit.transform.gameObject.GetComponent<Unit>().GetIsEnemy() == false)
+                    {
+                        GetComponent<UnitManager>().AddUnitToSelection(hit.transform.gameObject);
+                        Debug.Log(hit.transform.gameObject.name + " selected");
+                    }
                 }
             }
         }

@@ -9,30 +9,27 @@ public class Unit : MonoBehaviour {
     NavMeshAgent UnitAgent;
     Animator UnitAnimator;
 
-    bool IsEnemy = false;
-    
+    public bool IsEnemy = false;
+
 
     // Stats
     public int HealthMax = 5;
-    int Health;
+    private int Health;
     public int Defense = 0;
     public int AttackValue = 1;
-    public float AttackRange = 1.5f;
+    internal float AttackRange = 2f;
     public float AttackSpeed = 1f;
-    float LastAttackTime;
 
-    float Speed = 1.0f; // Unit movement speed
 
-	void Start ()
+    void Start()
     {
         // Init values
         GameManagerRef = GameObject.FindGameObjectWithTag("GameController");
         //GetComponent<CircleCollider2D>().radius = AttackRange;
-        LastAttackTime = Time.time;
         UnitAgent = GetComponent<NavMeshAgent>();
         UnitAnimator = GetComponent<Animator>();
         Health = HealthMax;
-	}
+    }
 
     void Update()
     {
@@ -47,31 +44,17 @@ public class Unit : MonoBehaviour {
         {
             UnitAnimator.SetBool("IsWalking", false);
         }
-    }
-
-
-    private void OnTriggerStay(Collider col)
-    {
-        // Check for a unit
-        if(col.gameObject.tag == "Unit")
-        {
-            if (LastAttackTime < Time.time - AttackSpeed)
-            {
-                // Attack enemy
-                if(IsEnemy != col.gameObject.GetComponent<Unit>().GetIsEnemy())
-                {
-                    col.gameObject.GetComponent<Unit>().TakeDamage(AttackValue);
-                    // Update last attack time
-                    LastAttackTime = Time.time;
-                }                
-            }            
-        }
-    }
+    } 
 
     public void SetTargetDestination(Vector3 NewDestination)
     {
         // Set new target
         UnitAgent.SetDestination(NewDestination);
+    }
+
+    public void SetTargetRotation(Vector3 ObjectToRotateTowards)
+    {
+        transform.LookAt(ObjectToRotateTowards);
     }
 
     public void TakeDamage(int damageToTake)
@@ -111,5 +94,17 @@ public class Unit : MonoBehaviour {
     public bool GetIsEnemy()
     {
         return IsEnemy;
+    }
+
+    public void AttackAnimPlay()
+    {
+        UnitAnimator.SetBool("IsAttacking", true);
+        UnitAgent.isStopped = true;
+    }
+
+    public void AttackAnimStop()
+    {
+        UnitAnimator.SetBool("IsAttacking", false);
+        UnitAgent.isStopped = false;
     }
 }
