@@ -8,6 +8,9 @@ public class Unit : MonoBehaviour {
     GameObject GameManagerRef;
     NavMeshAgent UnitAgent;
     Animator UnitAnimator;
+    public GameObject AffiliationCircle; // Shows player if unit friendly or enemy
+    public Material AffiliationEnemy;
+    public Material AffiliationFriendly;
 
     public bool IsEnemy = false;
 
@@ -29,6 +32,15 @@ public class Unit : MonoBehaviour {
         UnitAgent = GetComponent<NavMeshAgent>();
         UnitAnimator = GetComponent<Animator>();
         Health = HealthMax;
+
+        if (IsEnemy)
+        {
+            AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationEnemy;
+        }
+        else
+        {
+            AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationFriendly;
+        }
     }
 
     void Update()
@@ -80,6 +92,7 @@ public class Unit : MonoBehaviour {
                 // Make friendly and reset health
                 IsEnemy = false;
                 Health = HealthMax;
+                AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationFriendly;
             }
             else
             {
