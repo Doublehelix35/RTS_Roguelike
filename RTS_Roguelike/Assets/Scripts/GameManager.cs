@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
     float PanPercentageHighMax = 0.92f;
     float PanSpeed = 2.2f;
 
+    public GameObject PauseMenu;
+
     float ScrollSpeed = 15f;
     float ScrollClampMin = 4f;
     float ScrollClampMax = 25f;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour {
         //Init values
         BoxSelector = Instantiate(BoxSelectorPrefab, transform);
         BoxSelector.SetActive(false);
+        PauseMenu.SetActive(false);
     }
 	
 
@@ -35,6 +38,12 @@ public class GameManager : MonoBehaviour {
 
         // Clicks
         ClickChecks();
+
+        // Esc
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu.SetActive(true);
+        }
         
     }
 
