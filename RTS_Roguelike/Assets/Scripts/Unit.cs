@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour {
     public GameObject AffiliationCircle; // Shows player if unit friendly or enemy
     public Material AffiliationEnemy;
     public Material AffiliationFriendly;
+    public GameObject HealthBarRef;
 
     public bool IsEnemy = false;
 
@@ -81,7 +82,10 @@ public class Unit : MonoBehaviour {
         {
             // Lose health
             Health -= damageToTake + Defense;
-            Debug.Log("Ouch said " + gameObject.name);
+            //Debug.Log("Ouch said " + gameObject.name);
+            // Update health bar
+            float HealthPercent = (float)Health / (float)HealthMax;
+            HealthBarRef.GetComponent<HealthBar>().UpdateTransitionPercentage(HealthPercent);
         }        
 
         //Check health
@@ -93,6 +97,9 @@ public class Unit : MonoBehaviour {
                 IsEnemy = false;
                 Health = HealthMax;
                 AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationFriendly;
+                // Update health bar
+                float HealthPercent = (float)Health / (float)HealthMax;
+                HealthBarRef.GetComponent<HealthBar>().UpdateTransitionPercentage(HealthPercent);
             }
             else
             {
