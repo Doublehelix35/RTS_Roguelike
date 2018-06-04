@@ -127,4 +127,20 @@ public class Unit : MonoBehaviour {
         UnitAnimator.SetBool("IsAttacking", false);
         UnitAgent.isStopped = false;
     }
+
+    public void IncreaseMaxHealth(int ValueToIncreaseBy)
+    {
+        Health += ValueToIncreaseBy;
+        HealthMax += ValueToIncreaseBy;
+    }
+
+    public void IncreaseDefense(int ValueToIncreaseBy)
+    {
+        Defense += ValueToIncreaseBy;
+    }
+
+    public void IncreaseAttack(int ValueToIncreaseBy)
+    {
+        AttackValue += ValueToIncreaseBy;
+    }
 }
