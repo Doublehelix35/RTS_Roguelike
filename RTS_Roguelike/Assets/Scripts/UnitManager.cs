@@ -90,7 +90,24 @@ public class UnitManager : MonoBehaviour {
                 break;
             // Square formation
             case 2:
-                int width = 3; // replace with formula based on count
+                // Calculate width of formation
+                int width = 1, minRange = 1, maxRange = 1, gap = 1;
+
+                while(SelectedUnits.Count >= maxRange)
+                {
+                    if(SelectedUnits.Count >= minRange && SelectedUnits.Count <= maxRange)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        gap *= 2;
+                        width++;
+                        minRange = maxRange + 1;
+                        maxRange = minRange + gap;
+                    }
+                }
+
                 int unitNum = SelectedUnits.Count;
                 for (int i = 0; i < SelectedUnits.Count; i++)
                 {
