@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour {
     private int Health;
     public int Defense = 0;
     public int AttackValue = 1;
-    internal float AttackRange = 2f;
+    public float AttackRange = 1f;
     public float AttackSpeed = 1f;
 
 
@@ -29,7 +29,6 @@ public class Unit : MonoBehaviour {
     {
         // Init values
         GameManagerRef = GameObject.FindGameObjectWithTag("GameController");
-        //GetComponent<CircleCollider2D>().radius = AttackRange;
         UnitAgent = GetComponent<NavMeshAgent>();
         UnitAnimator = GetComponent<Animator>();
         Health = HealthMax;
