@@ -6,28 +6,77 @@ public class UnitManager : MonoBehaviour {
 
     private List<GameObject> SelectedUnits;
     private int SelectedFormation = 0; // Formation of selected units
+    
+    public enum FormationTypes { Health, Defense, Attack };
+    public FormationTypes Formation;
 
 
 	void Start ()
     {
         // Init values
-        SelectedUnits = new List<GameObject>();        
-        
+        SelectedUnits = new List<GameObject>();
+        Formation = FormationTypes.Health;
 	}
 	
 	void Update ()
     {
-        // 1 button
+        // 1 = Line Formation
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SelectedFormation = 1;
-            Debug.Log("Line formation!");
+
+            switch (Formation)
+            {
+                case FormationTypes.Health:
+                    SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB) 
+                    {
+                        return (unitA.GetComponent<Unit>().GetCurrentHealth()).CompareTo(unitB.GetComponent<Unit>().GetCurrentHealth());
+                    });
+                    break;
+                case FormationTypes.Defense:
+                    SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
+                    {
+                        return (unitA.GetComponent<Unit>().Defense).CompareTo(unitB.GetComponent<Unit>().Defense);
+                    });
+                    break;
+                case FormationTypes.Attack:
+                    SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
+                    {
+                        return (unitA.GetComponent<Unit>().AttackValue).CompareTo(unitB.GetComponent<Unit>().AttackValue);
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
-        // 2 button
+        // 2 = Square formation
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SelectedFormation = 2;
-            Debug.Log("Square formation!");
+
+            switch (Formation)
+            {
+                case FormationTypes.Health:
+                    SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
+                    {
+                        return (unitA.GetComponent<Unit>().GetCurrentHealth()).CompareTo(unitB.GetComponent<Unit>().GetCurrentHealth());
+                    });
+                    break;
+                case FormationTypes.Defense:
+                    SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
+                    {
+                        return (unitA.GetComponent<Unit>().Defense).CompareTo(unitB.GetComponent<Unit>().Defense);
+                    });
+                    break;
+                case FormationTypes.Attack:
+                    SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
+                    {
+                        return (unitA.GetComponent<Unit>().AttackValue).CompareTo(unitB.GetComponent<Unit>().AttackValue);
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -101,6 +150,7 @@ public class UnitManager : MonoBehaviour {
                     }
                     else
                     {
+                        // Increase to next range
                         gap *= 2;
                         width++;
                         minRange = maxRange + 1;
@@ -128,5 +178,10 @@ public class UnitManager : MonoBehaviour {
                 break;
         }
         
+    }
+
+    public void SetFormationType(int formationTypeNum)
+    {
+        Formation = (FormationTypes)formationTypeNum;
     }
 }

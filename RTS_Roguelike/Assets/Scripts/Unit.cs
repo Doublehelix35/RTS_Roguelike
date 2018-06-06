@@ -145,4 +145,9 @@ public class Unit : MonoBehaviour {
     {
         AttackValue += ValueToIncreaseBy;
     }
+
+    public int GetCurrentHealth()
+    {
+        return Health;
+    }
 }
