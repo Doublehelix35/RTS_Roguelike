@@ -32,6 +32,7 @@ public class Unit : MonoBehaviour {
         UnitAgent = GetComponent<NavMeshAgent>();
         UnitAnimator = GetComponent<Animator>();
         Health = HealthMax;
+        GameManagerRef.GetComponent<GameManager>().AddUnitToAllUnitsList(gameObject);
 
         if (IsEnemy)
         {
@@ -96,6 +97,7 @@ public class Unit : MonoBehaviour {
                 IsEnemy = false;
                 Health = HealthMax;
                 AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationFriendly;
+                GameManagerRef.GetComponent<GameManager>().UpdateArmySizeText();
                 // Update health bar
                 float HealthPercent = (float)Health / (float)HealthMax;
                 HealthBarRef.GetComponent<HealthBar>().UpdateTransitionPercentage(HealthPercent);
@@ -104,6 +106,7 @@ public class Unit : MonoBehaviour {
             {
                 // Unit dies
                 GameManagerRef.GetComponent<UnitManager>().RemoveUnitFromSelection(gameObject);
+                GameManagerRef.GetComponent<GameManager>().RemoveUnitFromAllUnitsList(gameObject);
                 Destroy(gameObject);
             }
             

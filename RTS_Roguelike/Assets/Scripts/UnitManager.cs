@@ -84,7 +84,7 @@ public class UnitManager : MonoBehaviour {
                 Vector3 LinePos = new Vector3(-2f, 0f, 0f);
                 for(int i = 0; i < SelectedUnits.Count; i++)
                 {
-                    LinePos.x += 2f;
+                    LinePos.x += 2.5f;
                     SelectedUnits[i].GetComponent<Unit>().SetTargetDestination(NewDestination + LinePos);
                 }
                 break;
@@ -113,7 +113,7 @@ public class UnitManager : MonoBehaviour {
                 {
                     for (int j = 0; j < width; j++)
                     {                        
-                        Vector3 SquarePos = new Vector3(j * 2, 0f, -i * 2);
+                        Vector3 SquarePos = new Vector3(j * 2.5f, 0f, -i * 2.5f);
                         SelectedUnits[unitNum - 1].GetComponent<Unit>().SetTargetDestination(NewDestination + SquarePos);
                         unitNum--;
                         Debug.Log(unitNum);

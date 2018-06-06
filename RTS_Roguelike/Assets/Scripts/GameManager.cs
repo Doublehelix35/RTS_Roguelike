@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     public GameObject BoxSelectorPrefab;
     GameObject BoxSelector;
-    private bool BoxSelectionStarted = false;
+    bool BoxSelectionStarted = false;
     float PanPercentageLowMin = 0.08f;
     float PanPercentageLowMax = 0.15f;
     float PanPercentageHighMin = 0.85f;
@@ -14,17 +15,26 @@ public class GameManager : MonoBehaviour {
     float PanSpeed = 2.2f;
 
     public GameObject PauseMenu;
+    public Text ArmySizeText;
+
+    List<GameObject> AllUnits;
 
     float ScrollSpeed = 15f;
     float ScrollClampMin = 4f;
     float ScrollClampMax = 25f;
+
+    void Awake()
+    {
+        AllUnits = new List<GameObject>();
+        ArmySizeText.text = "" + AllUnits.Count;
+    }
 
     void Start ()
     {
         //Init values
         BoxSelector = Instantiate(BoxSelectorPrefab, transform);
         BoxSelector.SetActive(false);
-        PauseMenu.SetActive(false);
+        PauseMenu.SetActive(false);        
     }
 	
 
@@ -233,4 +243,64 @@ public class GameManager : MonoBehaviour {
             BoxSelector.SetActive(false);
         }
     }
+
+    public void AddUnitToAllUnitsList(GameObject UnitToAdd)
+    {
+        if (!AllUnits.Contains(UnitToAdd))
+        {
+            AllUnits.Add(UnitToAdd);
+
+            int FriendlyUnitCount = 0;
+            foreach (var Unit in AllUnits)
+            {
+                // Check if unit is friendly
+                if(!Unit.GetComponent<Unit>().IsEnemy)
+                {
+                    FriendlyUnitCount++;
+                }
+            }
+            ArmySizeText.text = "" + FriendlyUnitCount;
+        }
+        else
+        {
+            Debug.Log("ERROR Unit already in list");
+        }
+    }
+
+    public void RemoveUnitFromAllUnitsList(GameObject UnitToRemove)
+    {
+        if (AllUnits.Contains(UnitToRemove))
+        {
+            AllUnits.Remove(UnitToRemove);
+
+            int FriendlyUnitCount = 0;
+            foreach (var Unit in AllUnits)
+            {
+                // Check if unit is friendly
+                if (!Unit.GetComponent<Unit>().IsEnemy)
+                {
+                    FriendlyUnitCount++;
+                }
+            }
+            ArmySizeText.text = "" + FriendlyUnitCount;
+        }
+        else
+        {
+            Debug.Log("ERROR Unit not in list");
+        }
+    } 
+
+    public void UpdateArmySizeText()
+    {
+        int FriendlyUnitCount = 0;
+        foreach (var Unit in AllUnits)
+        {
+            // Check if unit is friendly
+            if (!Unit.GetComponent<Unit>().IsEnemy)
+            {
+                FriendlyUnitCount++;
+            }
+        }
+        ArmySizeText.text = "" + FriendlyUnitCount;
+    } 
 }
