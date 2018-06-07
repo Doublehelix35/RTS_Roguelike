@@ -15,7 +15,6 @@ public class Unit : MonoBehaviour {
 
     public bool IsEnemy = false;
 
-
     // Stats
     public int HealthMax = 5;
     private int Health;
@@ -37,6 +36,9 @@ public class Unit : MonoBehaviour {
         if (IsEnemy)
         {
             AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationEnemy;
+            var EnemyAggro = new GameObject().AddComponent<EnemyHoming>();
+            EnemyAggro.name = "EnemyAggro";
+            EnemyAggro.transform.parent = gameObject.transform;
         }
         else
         {
@@ -70,6 +72,12 @@ public class Unit : MonoBehaviour {
         transform.LookAt(ObjectToRotateTowards);
     }
 
+    public void ClearTargetDestination()
+    {
+        // Clears unit agent of destination
+        UnitAgent.SetDestination(gameObject.transform.position);
+    }
+
     public void TakeDamage(int damageToTake)
     {
         // Defense check
@@ -98,6 +106,8 @@ public class Unit : MonoBehaviour {
                 Health = HealthMax;
                 AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationFriendly;
                 GameManagerRef.GetComponent<GameManager>().UpdateArmySizeText();
+                gameObject.transform.Find("EnemyAggro").gameObject.SetActive(false);
+                ClearTargetDestination();
                 // Update health bar
                 float HealthPercent = (float)Health / (float)HealthMax;
                 HealthBarRef.GetComponent<HealthBar>().UpdateTransitionPercentage(HealthPercent);
@@ -112,6 +122,8 @@ public class Unit : MonoBehaviour {
             
         }
     }
+
+    
 
     public bool GetIsEnemy()
     {

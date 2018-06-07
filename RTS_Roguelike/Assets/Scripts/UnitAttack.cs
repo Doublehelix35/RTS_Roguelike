@@ -34,7 +34,7 @@ public class UnitAttack : MonoBehaviour {
                 
             }
         }
-        else if (col.gameObject.tag == "Breakable")
+        else if (!UnitRef.GetComponent<Unit>().GetIsEnemy() && col.gameObject.tag == "Breakable") // Check if attacking unit is friendly and object is breakable
         {
             StartCoroutine(AttackWaitThenStop());
             UnitRef.GetComponent<Unit>().SetTargetRotation(col.gameObject.transform.position);

@@ -5,12 +5,7 @@ using UnityEngine;
 public class Breakable : MonoBehaviour {
 
     public GameObject ObjectToSpawn;
-	// Use this for initialization
-	void Start () {
-		
-	}
-
-
+	
     public void Break()
     {
         if(ObjectToSpawn != null)
