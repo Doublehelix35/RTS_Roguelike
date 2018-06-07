@@ -1712,8 +1712,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1964273570417092}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.98, y: 0, z: 0.22}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.3235655, y: -32.942482, z: -33.553066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4935527732503188}
@@ -1905,7 +1905,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259684075047520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.061, z: 0}
+  m_LocalPosition: {x: 0, y: -0.026, z: 0}
   m_LocalScale: {x: 0.8, y: 0.02, z: 0.8}
   m_Children: []
   m_Father: {fileID: 4619420014220542}
@@ -2349,7 +2349,7 @@ MonoBehaviour:
   AffiliationEnemy: {fileID: 2100000, guid: 0a5abf7bf1fa1104b8484261abb6fd77, type: 2}
   AffiliationFriendly: {fileID: 2100000, guid: 228d688f50989af4785a63d1dc476003, type: 2}
   HealthBarRef: {fileID: 1385921662918304}
-  IsEnemy: 0
+  IsEnemy: 1
   HealthMax: 10
   Defense: 0
   AttackValue: 1
@@ -2391,7 +2391,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.36
-  m_Height: 2
+  m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.85, z: 0}
 --- !u!137 &137287723778070120
