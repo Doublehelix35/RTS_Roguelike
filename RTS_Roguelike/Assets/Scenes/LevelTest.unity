@@ -1575,6 +1575,10 @@ Prefab:
       propertyPath: m_Name
       value: treasure_chest (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
+      propertyPath: m_TagString
+      value: Breakable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
   m_IsPrefabParent: 0
@@ -3529,6 +3533,10 @@ Prefab:
       propertyPath: m_Name
       value: treasure_chest (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
+      propertyPath: m_TagString
+      value: Breakable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
   m_IsPrefabParent: 0
@@ -4164,6 +4172,10 @@ Prefab:
     - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
       propertyPath: m_Name
       value: treasure_chest (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
+      propertyPath: m_TagString
+      value: Breakable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
@@ -5189,6 +5201,10 @@ Prefab:
     - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
       propertyPath: m_Name
       value: treasure_chest (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
+      propertyPath: m_TagString
+      value: Breakable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
@@ -11503,6 +11519,10 @@ Prefab:
       propertyPath: m_Name
       value: treasure_chest (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
+      propertyPath: m_TagString
+      value: Breakable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
   m_IsPrefabParent: 0
@@ -15874,6 +15894,10 @@ Prefab:
     - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
       propertyPath: m_Name
       value: treasure_chest (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773774586788108, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
+      propertyPath: m_TagString
+      value: Breakable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46ffa5f315160204eaf0165d0bc8b9e9, type: 2}
