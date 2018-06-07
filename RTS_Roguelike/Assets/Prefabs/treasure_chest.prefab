@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23514649653099846}
   - component: {fileID: 95121839171237348}
   - component: {fileID: 114951480669261270}
+  - component: {fileID: 65576127679444588}
   m_Layer: 2
   m_Name: treasure_chest
   m_TagString: Breakable
@@ -84,6 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773774586788108}
   m_Mesh: {fileID: 4300000, guid: d8eaab330bd6a7a4fa3e0538de5cbf91, type: 3}
+--- !u!65 &65576127679444588
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1773774586788108}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.48855838, y: 0.2574474, z: 0.29841623}
+  m_Center: {x: -0.000000014901161, y: -0.00000023841858, z: 0.14920786}
 --- !u!95 &95121839171237348
 Animator:
   serializedVersion: 3
