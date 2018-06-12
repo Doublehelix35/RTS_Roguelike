@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     float PanPercentageHighMin = 0.85f;
     float PanPercentageHighMax = 0.92f;
     float PanSpeed = 2.2f;
+    float PanFaster = 3f;
 
     public GameObject PauseMenu;
     public Text ArmySizeText;
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.mousePosition.x < Screen.width * PanPercentageLowMin) // Fast pan
             {
-                Camera.main.transform.position += Vector3.left * PanSpeed * Time.deltaTime * 3;
+                Camera.main.transform.position += Vector3.left * PanSpeed * Time.deltaTime * PanFaster;
             }
             else // Normal speed
             {
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.mousePosition.x > Screen.width * PanPercentageHighMax) // Fast pan
             {
-                Camera.main.transform.position += Vector3.right * PanSpeed * Time.deltaTime * 3;
+                Camera.main.transform.position += Vector3.right * PanSpeed * Time.deltaTime * PanFaster;
             }
             else // Normal speed
             {
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.mousePosition.y < Screen.height * PanPercentageLowMin) // Fast pan
             {
-                Camera.main.transform.position += Vector3.back * PanSpeed * Time.deltaTime * 3;
+                Camera.main.transform.position += Vector3.back * PanSpeed * Time.deltaTime * PanFaster;
             }
             else // Normal speed
             {
@@ -104,7 +105,7 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.mousePosition.y > Screen.height * PanPercentageHighMax) // Fast pan
             {
-                Camera.main.transform.position += Vector3.forward * PanSpeed * Time.deltaTime * 3;
+                Camera.main.transform.position += Vector3.forward * PanSpeed * Time.deltaTime * PanFaster;
             }
             else // Normal speed
             {
