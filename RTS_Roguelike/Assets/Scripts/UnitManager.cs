@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour {
 
-    private List<GameObject> SelectedUnits;
+    private List<GameObject> SelectedUnits; // List of units selected
     private int SelectedFormation = 0; // Formation of selected units
     
-    public enum FormationTypes { Health, Defense, Attack };
+    public enum FormationTypes { Health, Defense, Attack }; // Types of formations
     public FormationTypes Formation;
 
 
@@ -25,20 +25,24 @@ public class UnitManager : MonoBehaviour {
         {
             SelectedFormation = 1;
 
+            // Sort selection list by formation type
             switch (Formation)
             {
+                // Sort based on health
                 case FormationTypes.Health:
                     SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB) 
                     {
                         return (unitA.GetComponent<Unit>().GetCurrentHealth()).CompareTo(unitB.GetComponent<Unit>().GetCurrentHealth());
                     });
                     break;
+                // Sort based on defense
                 case FormationTypes.Defense:
                     SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
                     {
                         return (unitA.GetComponent<Unit>().Defense).CompareTo(unitB.GetComponent<Unit>().Defense);
                     });
                     break;
+                // Sort based on attack
                 case FormationTypes.Attack:
                     SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
                     {
@@ -54,20 +58,24 @@ public class UnitManager : MonoBehaviour {
         {
             SelectedFormation = 2;
 
+            // Sort selection list by formation type
             switch (Formation)
             {
+                // Sort based on health
                 case FormationTypes.Health:
                     SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
                     {
                         return (unitA.GetComponent<Unit>().GetCurrentHealth()).CompareTo(unitB.GetComponent<Unit>().GetCurrentHealth());
                     });
                     break;
+                // Sort based on defense
                 case FormationTypes.Defense:
                     SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
                     {
                         return (unitA.GetComponent<Unit>().Defense).CompareTo(unitB.GetComponent<Unit>().Defense);
                     });
                     break;
+                // Sort based on attack
                 case FormationTypes.Attack:
                     SelectedUnits.Sort(delegate (GameObject unitA, GameObject unitB)
                     {
@@ -83,6 +91,7 @@ public class UnitManager : MonoBehaviour {
     // Add unit to list
     public void AddUnitToSelection(GameObject UnitToAdd)
     {
+        // Check unit isnt already in list
         if (!SelectedUnits.Contains(UnitToAdd))
         {
             // Add unit to list
@@ -94,8 +103,10 @@ public class UnitManager : MonoBehaviour {
     // Remove unit from list
     public void RemoveUnitFromSelection(GameObject UnitToRemove)
     {
+        // Check unit is in list
         if (SelectedUnits.Contains(UnitToRemove))
         {
+            // Remove unit from list
             SelectedUnits.Remove(UnitToRemove);
         }
     }
@@ -103,6 +114,7 @@ public class UnitManager : MonoBehaviour {
     // Return unit count
     public int SelectionCount()
     {
+        // Return selection count
         return SelectedUnits.Count;
     }
 
@@ -130,6 +142,7 @@ public class UnitManager : MonoBehaviour {
                 break;
             // Line formation
             case 1:
+                // Move all units in a line
                 Vector3 LinePos = new Vector3(-2f, 0f, 0f);
                 for(int i = 0; i < SelectedUnits.Count; i++)
                 {
@@ -139,6 +152,8 @@ public class UnitManager : MonoBehaviour {
                 break;
             // Square formation
             case 2:
+                // Move all units in a square
+
                 // Calculate width of formation
                 int width = 1, minRange = 1, maxRange = 1, gap = 1;
 
@@ -158,6 +173,7 @@ public class UnitManager : MonoBehaviour {
                     }
                 }
 
+                // Calculate postion for each unit in selection
                 int unitNum = SelectedUnits.Count;
                 for (int i = 0; i < SelectedUnits.Count; i++)
                 {

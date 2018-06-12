@@ -5,27 +5,26 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject BoxSelectorPrefab;
-    GameObject BoxSelector;
-    bool BoxSelectionStarted = false;
-    float PanPercentageLowMin = 0.08f;
-    float PanPercentageLowMax = 0.15f;
-    float PanPercentageHighMin = 0.85f;
-    float PanPercentageHighMax = 0.92f;
-    float PanSpeed = 2.2f;
+    public GameObject BoxSelectorPrefab; // Box selector prefab to spawn and scale
+    GameObject BoxSelector; // Gameobject that will add units to selection on trigger
+    bool BoxSelectionStarted = false; // Tracks whether box selection is active
+    float PanScreenWidthMin = 0.08f; // Percentage of screen for fast pan
+    float PanScreenWidthMax = 0.15f; // Percentage of screen for normal pan
+    float PanSpeed = 2.2f; // Speed of camera panning
     float PanFaster = 3f;
 
-    public GameObject PauseMenu;
-    public Text ArmySizeText;
+    public GameObject PauseMenu; // Pause menu ref
+    public Text ArmySizeText; // UI text for army size
 
-    List<GameObject> AllUnits;
+    List<GameObject> AllUnits; // List of all units
 
-    float ScrollSpeed = 15f;
-    float ScrollClampMin = 4f;
-    float ScrollClampMax = 25f;
+    float ScrollSpeed = 15f; // Speed of scrolling
+    float ScrollClampMin = 4f; // Closest the camera can get to the floor
+    float ScrollClampMax = 25f; // Furthest the camera can get from the floor
 
     void Awake()
     {
+        // Init values
         AllUnits = new List<GameObject>();
         ArmySizeText.text = "" + AllUnits.Count;
     }
@@ -61,54 +60,70 @@ public class GameManager : MonoBehaviour {
     void PanCamera()
     {
         // Left pan
-        if (Input.mousePosition.x < Screen.width * PanPercentageLowMax) 
+        if (Input.mousePosition.x < Screen.width * PanScreenWidthMax) 
         {
-            if (Input.mousePosition.x < Screen.width * PanPercentageLowMin) // Fast pan
+            // Fast speed
+            if (Input.mousePosition.x < Screen.width * PanScreenWidthMin) 
             {
+                // Move camera left
                 Camera.main.transform.position += Vector3.left * PanSpeed * Time.deltaTime * PanFaster;
             }
-            else // Normal speed
+            // Normal speed
+            else
             {
+                // Move camera left
                 Camera.main.transform.position += Vector3.left * PanSpeed * Time.deltaTime;
             }
 
         }
         // Right pan
-        else if (Input.mousePosition.x > Screen.width * PanPercentageHighMin)
+        else if (Input.mousePosition.x > Screen.width * (1f - PanScreenWidthMax))
         {
-            if (Input.mousePosition.x > Screen.width * PanPercentageHighMax) // Fast pan
+            // Fast Speed
+            if (Input.mousePosition.x > Screen.width * (1f -PanScreenWidthMin)) 
             {
+                // Move camera right
                 Camera.main.transform.position += Vector3.right * PanSpeed * Time.deltaTime * PanFaster;
             }
-            else // Normal speed
+            // Normal speed
+            else
             {
+                // Move camera right
                 Camera.main.transform.position += Vector3.right * PanSpeed * Time.deltaTime;
             }
 
         }
 
         // Down pan
-        if (Input.mousePosition.y < Screen.height * PanPercentageLowMax)
+        if (Input.mousePosition.y < Screen.height * PanScreenWidthMax)
         {
-            if (Input.mousePosition.y < Screen.height * PanPercentageLowMin) // Fast pan
+            // Fast speed
+            if (Input.mousePosition.y < Screen.height * PanScreenWidthMin) 
             {
+                // Move camera down
                 Camera.main.transform.position += Vector3.back * PanSpeed * Time.deltaTime * PanFaster;
             }
-            else // Normal speed
+            // Normal speed
+            else
             {
+                // Move camera down
                 Camera.main.transform.position += Vector3.back * PanSpeed * Time.deltaTime;
             }
 
         }
         // Up pan
-        else if (Input.mousePosition.y > Screen.height * PanPercentageHighMin)
+        else if (Input.mousePosition.y > Screen.height * (1f - PanScreenWidthMax))
         {
-            if (Input.mousePosition.y > Screen.height * PanPercentageHighMax) // Fast pan
+            // Fast speed
+            if (Input.mousePosition.y > Screen.height * (1f - PanScreenWidthMin)) 
             {
+                // Move camera up
                 Camera.main.transform.position += Vector3.forward * PanSpeed * Time.deltaTime * PanFaster;
             }
-            else // Normal speed
+            // Normal speed
+            else
             {
+                // Move camera up
                 Camera.main.transform.position += Vector3.forward * PanSpeed * Time.deltaTime;
             }
 
@@ -121,14 +136,16 @@ public class GameManager : MonoBehaviour {
         // Scroll in
         if (Input.GetAxis("Mouse ScrollWheel") > 0) 
         {
+            // Move camera closer to floor
             Camera.main.transform.position += Vector3.down * ScrollSpeed * Time.deltaTime;
         }
         // Scroll out
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            // Move camera away from floor
             Camera.main.transform.position += Vector3.up * ScrollSpeed * Time.deltaTime;
         }
-
+        // Clamp the camera's positon based on the min and max values
         Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, 
                                                      Mathf.Clamp(Camera.main.transform.position.y, ScrollClampMin, ScrollClampMax), 
                                                      Camera.main.transform.position.z);
@@ -142,22 +159,25 @@ public class GameManager : MonoBehaviour {
             // Clear selection
             if (GetComponent<UnitManager>().SelectionCount() != 0)
             {
+                // Clear list of units
                 GetComponent<UnitManager>().ClearSelection();
             }
 
-            // Check for unit hit
+            // Check for unit hit via raycast
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit))
             {
+                // Check if raycast hit anything and if it did was that gameobject a unit
                 if (hit.collider != null && hit.collider.gameObject.tag == "Unit")
                 {
                     // Check if unit is friendly
                     if (hit.transform.gameObject.GetComponent<Unit>().GetIsEnemy() == false)
                     {
+                        // Add that unit to the selection
                         GetComponent<UnitManager>().AddUnitToSelection(hit.transform.gameObject);
-                        Debug.Log(hit.transform.gameObject.name + " selected");
+                        //Debug.Log(hit.transform.gameObject.name + " selected");
                     }
                 }
             }
@@ -177,6 +197,7 @@ public class GameManager : MonoBehaviour {
 
                 if (Physics.Raycast(ray, out hit))
                 {
+                    // Check if raycast hit something and whether the floor was it
                     if (hit.collider != null && hit.collider.gameObject.tag == "Floor")
                     {
                         // Edit box size
@@ -203,6 +224,7 @@ public class GameManager : MonoBehaviour {
 
                 if (Physics.Raycast(ray, out hit))
                 {
+                    // Check if raycast hit something and whether the floor was it
                     if (hit.collider != null && hit.collider.gameObject.tag == "Floor")
                     {
                         // Set box position
@@ -247,20 +269,14 @@ public class GameManager : MonoBehaviour {
 
     public void AddUnitToAllUnitsList(GameObject UnitToAdd)
     {
+        // Check if unit isn't already in list
         if (!AllUnits.Contains(UnitToAdd))
         {
+            // Add the unit to the list
             AllUnits.Add(UnitToAdd);
 
-            int FriendlyUnitCount = 0;
-            foreach (var Unit in AllUnits)
-            {
-                // Check if unit is friendly
-                if(!Unit.GetComponent<Unit>().IsEnemy)
-                {
-                    FriendlyUnitCount++;
-                }
-            }
-            ArmySizeText.text = "" + FriendlyUnitCount;
+            // Calculate the friendly unit count
+            UpdateArmySizeText();
         }
         else
         {
@@ -270,20 +286,14 @@ public class GameManager : MonoBehaviour {
 
     public void RemoveUnitFromAllUnitsList(GameObject UnitToRemove)
     {
+        // Check if list contains the unit
         if (AllUnits.Contains(UnitToRemove))
         {
+            // Remove the unit
             AllUnits.Remove(UnitToRemove);
 
-            int FriendlyUnitCount = 0;
-            foreach (var Unit in AllUnits)
-            {
-                // Check if unit is friendly
-                if (!Unit.GetComponent<Unit>().IsEnemy)
-                {
-                    FriendlyUnitCount++;
-                }
-            }
-            ArmySizeText.text = "" + FriendlyUnitCount;
+            // Recalculate the friendly unit count
+            UpdateArmySizeText();
         }
         else
         {

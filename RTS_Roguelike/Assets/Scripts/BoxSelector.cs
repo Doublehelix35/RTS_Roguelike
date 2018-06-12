@@ -9,12 +9,14 @@ public class BoxSelector : MonoBehaviour {
 
 	void Start ()
     {
+        // Init Values
         GameManagerRef = GameObject.FindGameObjectWithTag("GameController");
     }
 
     
     private void OnTriggerEnter(Collider col)
     {
+        // Check if gameobject is a unit
         if (col.gameObject.tag == "Unit")
         {
             // Check if unit is friendly

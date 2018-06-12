@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour {
 
-    public Material GreenMat;
-    public Material RedMat;
-    private float TransitionPercent = 1.0f;
-    private Renderer rend;
-    public float WidthMax = 0.8f;
+    public Material GreenMat; // Full health material
+    public Material RedMat; // Zero health material
+    private float TransitionPercent = 1.0f; // How much the transition has progressed in %
+    private Renderer rend; // This gameobjects renderer
+    public float WidthMax = 0.8f; // Max size of the health bar
 
 	void Start ()
     {

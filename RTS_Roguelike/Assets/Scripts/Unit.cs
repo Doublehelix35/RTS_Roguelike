@@ -5,23 +5,23 @@ using UnityEngine.AI;
 
 public class Unit : MonoBehaviour {
 
-    GameObject GameManagerRef;
-    NavMeshAgent UnitAgent;
+    GameObject GameManagerRef; // Reference to game manager
+    NavMeshAgent UnitAgent; 
     Animator UnitAnimator;
     public GameObject AffiliationCircle; // Shows player if unit friendly or enemy
-    public Material AffiliationEnemy;
-    public Material AffiliationFriendly;
-    public GameObject HealthBarRef;
+    public Material AffiliationEnemy; // Enemy material
+    public Material AffiliationFriendly; // Friendly material
+    public GameObject HealthBarRef; // Reference to health bar object
 
-    public bool IsEnemy = false;
+    public bool IsEnemy = false; // Is the unit friendly or an enemy
 
     // Stats
-    public int HealthMax = 5;
-    private int Health;
-    public int Defense = 0;
-    public int AttackValue = 1;
-    public float AttackRange = 1f;
-    public float AttackSpeed = 1f;
+    public int HealthMax = 5; // Maximum health
+    private int Health; // Current health
+    public int Defense = 0; // Damage mitigation
+    public int AttackValue = 1; // Attack strength
+    public float AttackRange = 1f; // Range of attack
+    public float AttackSpeed = 1f; // Interval between attacks
 
 
     void Start()
@@ -33,6 +33,7 @@ public class Unit : MonoBehaviour {
         Health = HealthMax;
         GameManagerRef.GetComponent<GameManager>().AddUnitToAllUnitsList(gameObject);
 
+        // Set up affilation circle and enemy
         if (IsEnemy)
         {
             AffiliationCircle.GetComponent<MeshRenderer>().material = AffiliationEnemy;
@@ -69,6 +70,7 @@ public class Unit : MonoBehaviour {
 
     public void SetTargetRotation(Vector3 ObjectToRotateTowards)
     {
+        // Make gameobject look at target
         transform.LookAt(ObjectToRotateTowards);
     }
 
@@ -84,13 +86,11 @@ public class Unit : MonoBehaviour {
         if(Defense >= damageToTake)
         {
             // Take no damage
-            //Debug.Log("Ha! Pathetic attack");
         }
         else
         {
             // Lose health
             Health -= damageToTake + Defense;
-            //Debug.Log("Ouch said " + gameObject.name);
             // Update health bar
             float HealthPercent = (float)Health / (float)HealthMax;
             HealthBarRef.GetComponent<HealthBar>().UpdateTransitionPercentage(HealthPercent);
@@ -127,39 +127,46 @@ public class Unit : MonoBehaviour {
 
     public bool GetIsEnemy()
     {
+        // Return is enemy boolean
         return IsEnemy;
     }
 
     public void AttackAnimPlay()
     {
+        // Play animation and stop movement
         UnitAnimator.SetBool("IsAttacking", true);
         UnitAgent.isStopped = true;
     }
 
     public void AttackAnimStop()
     {
+        // Stop animation and resume movement
         UnitAnimator.SetBool("IsAttacking", false);
         UnitAgent.isStopped = false;
     }
 
     public void IncreaseMaxHealth(int ValueToIncreaseBy)
     {
+        // Increase current and max health
         Health += ValueToIncreaseBy;
         HealthMax += ValueToIncreaseBy;
     }
 
     public void IncreaseDefense(int ValueToIncreaseBy)
     {
+        // Increase defense value
         Defense += ValueToIncreaseBy;
     }
 
     public void IncreaseAttack(int ValueToIncreaseBy)
     {
+        // Increase attack value
         AttackValue += ValueToIncreaseBy;
     }
 
     public int GetCurrentHealth()
     {
+        // Return current health
         return Health;
     }
 }
